@@ -1,0 +1,48 @@
+.home_item{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 50%;
+    width: 100%;
+    
+}
+.home{
+    height: 100vh;
+}
+.home img{
+}
+a{
+    text-decoration: none;
+    transition: 0.5s;
+}
+.logo{
+    width: 150px;
+}
+
+.message{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 6px;
+}
+.home{
+    height: 90vh;
+}
+
+.user_list_card .card{
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #198754;
+    color: white;
+    transition: 0.5s;
+}
+.user_list_card .card a{
+    color: white;
+}
+.user_list_card .card:hover{
+    background-color: #18583a;
+}
+.username{
+    text-transform: uppercase;
+}
+
+
+

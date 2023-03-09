@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Account{% endblock %}
+{% block body %}
+<div class="container my-5 pt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-center mb-4 alert alert-success">Create Account</h5>
+            <form method="POST" action="{% url 'create_account' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input name="username" type="text" class="form-control" id="username" placeholder="Enter username">
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input name="email" type="text" class="form-control" id="email" placeholder="Enter email">
+              </div>
+              
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Create Account</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

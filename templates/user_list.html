@@ -1,0 +1,35 @@
+<div class="container py-5 mt-5 home">
+  <h3 class="alert alert-success">Make Conversation With</h3>
+  <hr>
+  <div class="row">
+
+
+    {% for user, num_messages in users %}
+    <div class="col-md-4 my-2 user_list_card position-relative">
+      <div class="card  text-light">
+        <a href="{% url 'messaging' user.pk %}" class="card-body">
+          <h5 class="card-title username">{{user.username}}</h5>
+          <p class="card-text">{{user.email}}</p>
+        </a>
+      </div>
+
+      {% if num_messages %}
+      <span
+        class="border border-success text-success bg-light position-absolute top-0  translate-middle badge rounded-pill bg-danger new">
+        {{num_messages}}
+      </span>
+      {% endif %}
+
+
+    </div>
+    {% endfor %}
+
+    <script>
+      //getting message____________________________________________________________________________
+
+    </script>
+
+
+
+  </div>
+</div>

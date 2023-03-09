@@ -1,0 +1,84 @@
+<script>
+    $("#send_message_btn").click(function () {
+        output = "";
+        let message = $("#messages_input_id").val();
+        let csr = $("input[name=csrfmiddlewaretoken]").val()
+
+        if (message != "") {
+
+            mydata = {
+                messages: message,
+                csrfmiddlewaretoken: csr
+            }
+
+            $.ajax({
+                url: "{% url 'messagesend' receiver.id %}",
+                method: "POST",
+                data: mydata,
+                dataType: "json",
+                success: function (data) {
+
+                    d = data.message_data
+
+                    reciver = "{{receiver.username}}"
+                    sender = "{{request.user}}"
+                    console.log("=====================", reciver)
+                    console.log("=====================", sender)
+                    if (data.status == "Save") {
+                        console.log("Submitted Sucessfully")
+                        //console.log(data.message_data);
+                    }
+                }
+            })
+            $("#messages_input_id").val("");
+            console.log(mydata);
+        }
+        
+    })
+
+
+
+
+
+
+
+    //getting message____________________________________________________________________________
+    $(document).ready(function () {
+        setInterval(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetMessage/' + '{{receiver.pk}}' + '/',
+                success: function (response) {
+                    console.log(response);
+                    $(".card-body").empty();
+
+                    var receiver_id = "{{receiver.id}}";
+                    var current_user_id = "{{request.user.id}}";
+                    var current_user_name = "{{request.user.username}}";
+                    var reciver_user_name = "{{receiver.username}}"
+
+                    for (var i = 0; i < response.messagesList.length; i++) {
+                          
+                        var message = response.messagesList[i];
+                        var date = new Date(message.date);
+                        
+
+                        message.date = message.date.toLocaleString();
+
+                        if (message.reciever_id == receiver_id && message.sender_id == current_user_id) {
+                            var temp = '<div class="message sent p-2 my-2 bg-success text-light"> <label class="d-flex">' + message.value + '</label> <small class="time" style="font-size: 9px;">by <b>ME</b>&nbsp;&nbsp;' + message.date + '</small></div>';
+                            $(".card-body").append(temp);
+                        } else if (message.reciever_id == current_user_id && message.sender_id == receiver_id) {
+                            var temp = '<div class="message received p-2 my-2 bg-light text-dark"> <label class="d-flex">' + message.value + '</label> <small class="time" style="font-size: 9px;">by <b>' + reciver_user_name + '</b>&nbsp;&nbsp;' + message.date + '</small></div>';
+                            $(".card-body").append(temp);
+                        }
+                    }
+                },
+                error: function (response) {
+                    alert('An error occured')
+                }
+            });
+        }, 1000);
+    });
+
+</script>
